@@ -2,7 +2,12 @@
 Simple python driver for etrex GPS unit
 
 ### Usage
-Execute the application to view the usage details:
+Specify the path to serial device file to read and display GPS data:
+```
+$ ./gps /dev/ttyUSB0
+```
+
+Or use the help flag to view the full usage details:
 ```
 $ ./gps -h
 usage: gps.py [-h] [-b BAUD] device
@@ -16,11 +21,6 @@ optional arguments:
   -h, --help            show this help message and exit
   -b BAUD, --baud BAUD  Baud rate (optional, 4800 default)
 
-```
-
-Specify the path to serial device file to read and display GPS data:
-```
-$ ./gps /dev/ttyUSB0
 ```
 
 ### Dependencies
