@@ -22,3 +22,9 @@ Specify the path to serial device file to read and display GPS data:
 ```
 $ ./gps /dev/ttyUSB0
 ```
+
+### Dependencies
+
+Install python3 to your system and use pip to install the following dependencies:
+* argparse
+* pyserial
