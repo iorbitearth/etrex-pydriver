@@ -19,7 +19,7 @@ class ETrexDriver(object):
         self.numpkts = 0
 
         # register ctrl-c signal handler
-        signal.signal(signal.SIGINT, self.signal_handler)
+        signal.signal(signal.SIGINT, self.__signal_handler)
 
 
     def __del__(self):
@@ -38,8 +38,7 @@ class ETrexDriver(object):
         print ("number of packets received: " + str(self.numpkts))
 
 
-
-    def signal_handler(self, signal, frame):
+    def __signal_handler(self, signal, frame):
         """
         Handle the Ctrl-C UNIX signal to shutdown the applcation.
         """
@@ -51,6 +50,9 @@ class ETrexDriver(object):
         """
         Process raw GPS ascii data into something more meaningful.
         """
+        # decode the bytes literal
+        data = str(data, encoding=self.encoding).strip()
+        return data
 
 
     def run(self):
@@ -62,14 +64,11 @@ class ETrexDriver(object):
 
         while self.running:
             try:
-                # read GPS bytes up to first newline character
-                data = self.dev.readline()
-
-                # decode the bytes literal
-                data = str(data, encoding=self.encoding)
+                # read and process GPS bytes up to first newline character
+                data = self.__process_data(self.dev.readline())
 
                 # display raw ascii data to stdout
-                print ("GPS data: " + str(data))
+                print ("GPS packet: " + str(data))
 
                 # increment metrics
                 self.numpkts += 1
